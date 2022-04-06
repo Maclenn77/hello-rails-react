@@ -1,7 +1,12 @@
 import { createStore } from "redux";
 
 const initialState = {
-    greetings: []
+    greetings: [
+        {
+            language: 'Spanish',
+            hi: '¡Hola, bienvenidos!'
+        }
+    ]
 };
 
 const rootReducer = (state, action) => {

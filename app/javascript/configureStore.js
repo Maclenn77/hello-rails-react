@@ -1,7 +1,14 @@
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
+
+import thunk from "redux-thunk";
 
 const initialState = {
-    greetings: []
+    greetings: [
+        {
+            lang: 'Spanish',
+            hi: '¡Hola, bienvenido!'
+        }
+    ]
 };
 
 const rootReducer = (state, action) => {
@@ -13,7 +20,7 @@ const rootReducer = (state, action) => {
 }
 
 const configureStore = () => {
-    const store = createStore(rootReducer, initialState);
+    const store = createStore(rootReducer, initialState, applyMiddleware(thunk));
     return store;
 }
 

@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
-  get '*page', to: 'static#index', constraints: ->(req) do 
-    !req.xhr? && req.format.html?
+  root to:'static#index'
+  namespace :v1, constraints: ->(req) { req.format == :json } do
+    resources :greetings, only: [:index]
   end
-  root 'static#index'
-  namespace :v1, defaults: { format: 'json' } do
-    get 'greetings', to: 'greetings#index'
-  end
+  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
+  get '*page', to: 'static#index', constraints: ->(req) { !req.xhr? && req.format.html? }
 end

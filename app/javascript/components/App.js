@@ -12,12 +12,14 @@ const store = configureStore();
 class App extends React.Component {
   render () {
     return (
-     <Router>
-        <Routes>
-          <Route exact path="/" element={(<h2>Welcome to Greeting App!</h2>)} />
-          <Route exact path="/hello" element={<HelloWorld greeting="Friend"/>} />
-        </Routes>
-      </Router> 
+      <Provider store={store}>
+       <Router>
+         <Routes>
+            <Route exact path="/" element={(<h2>Welcome to Greeting App!</h2>)} />
+            <Route exact path="/hello" element={<HelloWorld greeting="Friend"/>} />
+         </Routes>
+       </Router>
+      </Provider>
     );
   }
 }

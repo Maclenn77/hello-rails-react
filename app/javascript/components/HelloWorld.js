@@ -1,40 +1,25 @@
-import React from "react"
-import { connect } from "react-redux";
-import { createStructuredSelector } from "reselect";
+import React, { useEffect } from "react"
+import {useSelector, useDispatch} from 'react-redux';
 import PropTypes from "prop-types"
+import { getGreeting } from "../api_handler";
 
-const GET_GREETINGS_REQUEST = 'GET_GREETINGS_REQUEST';
+const HelloWorld = () => {
 
-const getGreetings = () => {
-  console.log('getGreetings() Action')
-  return {
-    type: GET_GREETINGS_REQUEST
-  };
-};
+  const dispatch = useDispatch();
+  const greeting = useSelector((state) => state.greeting);
 
-class HelloWorld extends React.Component {
-  render () {
-    // const { greetings } = this.props;
-    // const greetingsList = greetings.map((greeting) => {
-    //   return <li>{greeting.lang} {greeting.hi}</li>
-    // })
-    return (
-      <React.Fragment>
-        Greeting: {this.props.greeting}
+  useEffect(() => {
+    dispatch(getGreeting());
+  }, []);
 
-        <button className="getGreetingsBtn" onClick={() => getGreetings()}>Get Greeting</button>
-        <br />
-        {/* <ul>{ greetingsList }</ul> */}
-      </React.Fragment>
+  return (
+    <main>
+      <h1>Greetings in {greeting} </h1>
+      <button ></button>
+    </main>
     );
-  }
 }
 
-const structuredSelector = createStructuredSelector({
-  greetings: state => state.greetings,
-});
-
-const mapDispatchToProps = { getGreetings };
 
 HelloWorld.propTypes = {
   greeting: PropTypes.string

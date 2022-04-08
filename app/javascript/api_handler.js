@@ -1,6 +1,7 @@
 const GET_GREETING_REQUEST = 'GET_GREETING_REQUEST';
 const GET_GREETING_SUCCESS = 'GET_GREETING_SUCCESS';
 const GET_GREETING_FAILURE = 'GET_GREETING_FAILURE';
+
 const url = '/v1/greetings';
 
 const initialState = 'Hi!';
@@ -22,7 +23,7 @@ export const getGreeting = () => {
     try {
       const response = await fetch(url);
       const json = await response.json()
-      dispatch(getGreetingSuccess(json.message))
+      dispatch(getGreetingSuccess(json.greetings))
     }
     catch (error) {
       dispatch(getGreetingFailure)
@@ -30,14 +31,14 @@ export const getGreeting = () => {
   }
 }
 
-const reducer = (state = initialState, { type, payload }) => {
-  switch (type) {
-    default:
-      return state;
+const reducer = (state = initialState, action) => {
+  switch (action.type) {
     case GET_GREETING_SUCCESS:
-      return payload;
+      return action.payload;
     case GET_GREETING_FAILURE:
       return 'Loading failed';
+    default:
+      return state;
   }
 };
 

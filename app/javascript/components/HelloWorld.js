@@ -14,7 +14,8 @@ const HelloWorld = () => {
 
   return (
     <main>
-      <h1>Greetings in {greeting} </h1>
+      <h1>{greeting.greeting}</h1>
+      <p>A greeting in {greeting.language}</p>
       <button ></button>
     </main>
     );

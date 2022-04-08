@@ -4,7 +4,10 @@ const GET_GREETING_FAILURE = 'GET_GREETING_FAILURE';
 
 const url = '/v1/greetings';
 
-const initialState = 'Hi!';
+const initialState = { 
+    greeting: 'Greeting app',
+    language: 'different languages'
+};
 
 const getGreetingRequest = () => ({
   type: GET_GREETING_REQUEST
@@ -23,7 +26,7 @@ export const getGreeting = () => {
     try {
       const response = await fetch(url);
       const json = await response.json()
-      dispatch(getGreetingSuccess(json.greetings))
+      dispatch(getGreetingSuccess(json))
     }
     catch (error) {
       dispatch(getGreetingFailure)

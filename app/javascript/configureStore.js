@@ -1,27 +1,20 @@
-import { createStore, applyMiddleware } from "redux";
-
+import {
+    createStore, combineReducers, applyMiddleware, compose,
+  } from 'redux';
+import logger from 'redux-logger';
 import thunk from 'redux-thunk';
+import reducer from './api_handler'; 
 
-const initialState = {
-    greetings: [
-        {
-            language: 'Spanish',
-            hi: '¡Hola, bienvenidos!'
-        }
-    ]
-};
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+  
+const greeting_Reducer = combineReducers({
+   greeting: reducer,
+  });
 
-const rootReducer = (state, action) => {
-    console.log(action.type);
-    switch (action.type) {
-        default:
-            return state
-    }
-}
+const store = createStore(
+  greeting_Reducer, composeEnhancers(
+    applyMiddleware(logger, thunk),
+  ),
+);
 
-const configureStore = () => {
-    const store = createStore(rootReducer, initialState, applyMiddleware(thunk));
-    return store;
-}
-
-export default configureStore
+export default store;

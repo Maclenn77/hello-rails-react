@@ -1,9 +1,14 @@
 Rails.application.routes.draw do
-  get '*page', to: 'static#index', constraints: ->(req) do 
+  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  Rails.application.routes.draw do
+    namespace :v1, defaults: { format: :json } do
+      get 'greetings', to: 'greetings#index'
+    end
+    # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  end
+  get '*page', to: 'static#index', constraints: lambda { |req|
     !req.xhr? && req.format.html?
-  end
+  }
+  # Defines the root path route ("/")
   root 'static#index'
-  namespace :v1, defaults: { format: 'json' } do
-    get 'greetings', to: 'greetings#index'
-  end
 end
